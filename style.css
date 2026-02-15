@@ -10,22 +10,21 @@ body {
 }
 
 header {
-  padding: 20px;
   background: white;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
   position: sticky;
   top: 0;
-  border-bottom: 1px solid #ddd;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 22px;
+h1 {
+  margin: 0 0 15px 0;
 }
 
 .tabs {
-  margin-top: 15px;
   display: flex;
   gap: 10px;
+  margin-bottom: 10px;
 }
 
 .tabs button {
@@ -43,9 +42,26 @@ header h1 {
   color: white;
 }
 
-.match-list {
+.sports {
+  display: flex;
+  gap: 10px;
+}
+
+.sports button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 15px;
+  background: #111;
+  color: white;
+  cursor: pointer;
+}
+
+.content {
   padding: 15px;
 }
+
+/* Match Cards */
 
 .match-card {
   background: white;
@@ -86,6 +102,37 @@ header h1 {
 }
 
 .live {
-  color: #e10600;
+  color: red;
   font-weight: bold;
+}
+
+/* News Cards */
+
+.news-card {
+  background: white;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.news-card img {
+  width: 90px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.news-title {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.news-source {
+  font-size: 12px;
+  color: #666;
 }
