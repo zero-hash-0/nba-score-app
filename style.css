@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: white;
+}
+
+header {
+  padding: 20px;
+  background: #1d428a;
+  text-align: center;
+}
+
+.game {
+  background: #222;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.team {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.status {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #aaa;
+}

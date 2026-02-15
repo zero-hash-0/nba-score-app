@@ -1,0 +1,9 @@
+{
+  "name": "NBA Live Scores",
+  "short_name": "NBA Scores",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#111",
+  "theme_color": "#1d428a",
+  "icons": []
+}
