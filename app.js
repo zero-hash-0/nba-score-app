@@ -6,19 +6,14 @@ function setSport(sport) {
   loadScores();
 }
 
-function getTodayDate() {
-  const today = new Date();
-  return today.toISOString().split("T")[0].replace(/-/g, "");
-}
-
 async function loadScores() {
   scoresContainer.innerHTML = "<p>Loading...</p>";
 
   try {
     if (currentSport === "nba") {
-      await loadNBA();
+      await loadESPN("basketball/nba");
     } else if (currentSport === "nhl") {
-      await loadNHL();
+      await loadESPN("hockey/nhl");
     }
   } catch (error) {
     scoresContainer.innerHTML = "<p>Error loading scores.</p>";
@@ -26,22 +21,11 @@ async function loadScores() {
   }
 }
 
-async function loadNBA() {
-  const today = getTodayDate();
-  const res = await fetch(`https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_${today}.json`);
+async function loadESPN(path) {
+  const res = await fetch(`https://site.api.espn.com/apis/v2/sports/${path}/scoreboard`);
   const data = await res.json();
 
-  renderGames(data.scoreboard.games, "nba");
-}
-
-async function loadNHL() {
-  const res = await fetch("https://api-web.nhle.com/v1/scoreboard/now");
-  const data = await res.json();
-
-  renderGames(data.games, "nhl");
-}
-
-function renderGames(games, sport) {
+  const games = data.events;
   scoresContainer.innerHTML = "";
 
   if (!games || games.length === 0) {
@@ -50,28 +34,19 @@ function renderGames(games, sport) {
   }
 
   games.forEach(game => {
+    const home = game.competitions[0].competitors.find(c => c.homeAway === "home");
+    const away = game.competitions[0].competitors.find(c => c.homeAway === "away");
+
     const card = document.createElement("div");
     card.className = "card";
 
-    if (sport === "nba") {
-      card.innerHTML = `
-        <strong>${game.homeTeam.teamName}</strong> ${game.homeTeam.score}
-        <br/>
-        <strong>${game.awayTeam.teamName}</strong> ${game.awayTeam.score}
-        <br/>
-        ${game.gameStatusText}
-      `;
-    }
-
-    if (sport === "nhl") {
-      card.innerHTML = `
-        <strong>${game.homeTeam.name.default}</strong> ${game.homeTeam.score}
-        <br/>
-        <strong>${game.awayTeam.name.default}</strong> ${game.awayTeam.score}
-        <br/>
-        ${game.gameState}
-      `;
-    }
+    card.innerHTML = `
+      <strong>${home.team.displayName}</strong> ${home.score}
+      <br/>
+      <strong>${away.team.displayName}</strong> ${away.score}
+      <br/>
+      ${game.status.type.description}
+    `;
 
     scoresContainer.appendChild(card);
   });
