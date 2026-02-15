@@ -13,16 +13,19 @@
     <header>
       <h1>Sports Live</h1>
 
-      <div class="tabs">
+      <div class="view-tabs">
         <button id="scoresTab" class="active" onclick="showScores()">Scores</button>
         <button id="newsTab" onclick="showNews()">News</button>
       </div>
-
-      <div class="sports">
-        <button onclick="setSport('basketball/nba')">NBA</button>
-        <button onclick="setSport('hockey/nhl')">NHL</button>
-      </div>
     </header>
+
+    <!-- SPORT TABS (Lower + Bigger) -->
+    <div class="sport-tabs">
+      <button onclick="setSport('basketball/nba')">NBA</button>
+      <button onclick="setSport('hockey/nhl')">NHL</button>
+      <button onclick="setSport('baseball/mlb')">MLB</button>
+      <button onclick="setSport('soccer/eng.1')">Soccer</button>
+    </div>
 
     <div id="scores" class="content"></div>
     <div id="news" class="content" style="display:none;"></div>
