@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>NBA App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sports Live</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <header>
-    <h1>NBA Live</h1>
+    <h1>Sports Live</h1>
   </header>
 
-  <main id="content">
-    <div id="scores" class="tab active"></div>
-    <div id="standings" class="tab"></div>
-  </main>
+  <div class="sport-select">
+    <button onclick="setSport('nba')">NBA</button>
+    <button onclick="setSport('nhl')">NHL</button>
+  </div>
 
-  <nav>
-    <button onclick="showTab('scores')">Scores</button>
-    <button onclick="showTab('standings')">Standings</button>
-  </nav>
+  <div id="scores" class="scores"></div>
 
   <script src="app.js"></script>
 </body>
