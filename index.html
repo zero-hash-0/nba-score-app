@@ -8,19 +8,19 @@
 </head>
 <body>
 
-  <header class="hero">
-    <div class="overlay">
+  <div class="app">
+
+    <header>
       <h1>Sports Live</h1>
-      <p>Real-time scores. Clean. Fast.</p>
-    </div>
-  </header>
+      <div class="tabs">
+        <button onclick="setSport('nba')" class="active">NBA</button>
+        <button onclick="setSport('nhl')">NHL</button>
+      </div>
+    </header>
 
-  <div class="sport-select">
-    <button onclick="setSport('nba')" class="nba-btn">NBA</button>
-    <button onclick="setSport('nhl')" class="nhl-btn">NHL</button>
+    <div id="scores" class="match-list"></div>
+
   </div>
-
-  <div id="scores" class="scores"></div>
 
   <script src="app.js"></script>
 </body>
