@@ -1,93 +1,91 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #0f0f14;
-  color: white;
+  background: #f4f6f9;
 }
 
-/* HERO SECTION */
-.hero {
-  background: linear-gradient(135deg, #1d3557, #0a1f44);
-  padding: 50px 20px;
-  text-align: center;
-  position: relative;
+.app {
+  max-width: 600px;
+  margin: auto;
 }
 
-.hero h1 {
-  margin: 0;
-  font-size: 32px;
-  letter-spacing: 1px;
-}
-
-.hero p {
-  margin-top: 8px;
-  opacity: 0.8;
-  font-size: 14px;
-}
-
-/* SPORT BUTTONS */
-.sport-select {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
+header {
   padding: 20px;
+  background: white;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid #ddd;
 }
 
-button {
-  padding: 12px 22px;
+header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.tabs {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
   border: none;
-  border-radius: 30px;
+  border-radius: 20px;
+  background: #e5e7eb;
   font-weight: bold;
-  font-size: 14px;
   cursor: pointer;
-  transition: 0.3s ease;
 }
 
-/* NBA THEME */
-.nba-btn {
-  background: linear-gradient(135deg, #c8102e, #1d428a);
+.tabs button.active {
+  background: #0f62fe;
   color: white;
 }
 
-.nba-btn:hover {
-  transform: scale(1.05);
-}
-
-/* NHL THEME */
-.nhl-btn {
-  background: linear-gradient(135deg, #111, #6c6c6c);
-  color: white;
-}
-
-.nhl-btn:hover {
-  transform: scale(1.05);
-}
-
-/* SCORES */
-.scores {
+.match-list {
   padding: 15px;
 }
 
-.card {
-  background: linear-gradient(145deg, #1c1c25, #14141a);
-  padding: 18px;
-  margin-bottom: 15px;
+.match-card {
+  background: white;
   border-radius: 14px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-  font-size: 15px;
-  line-height: 1.6;
+  padding: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.card strong {
-  font-size: 16px;
+.teams {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Smooth Fade In */
-.card {
-  animation: fadeIn 0.4s ease forwards;
+.team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 40%;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+.team img {
+  width: 24px;
+  height: 24px;
+}
+
+.score {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.status {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+.live {
+  color: #e10600;
+  font-weight: bold;
 }
