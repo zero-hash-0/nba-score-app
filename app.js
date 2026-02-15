@@ -1,6 +1,4 @@
-let currentSport = "nba";
-
-const proxy = "https://api.allorigins.win/raw?url=";
+let currentSport = "basketball/nba";
 
 function setSport(sport) {
   currentSport = sport;
@@ -18,12 +16,11 @@ async function fetchScores() {
   const container = document.getElementById("scores");
   container.innerHTML = "Loading...";
 
-  const apiURL = `https://site.api.espn.com/apis/v2/sports/${currentSport}/scoreboard`;
-  const finalURL = proxy + encodeURIComponent(apiURL);
+  const url = `https://site.api.espn.com/apis/v2/sports/${currentSport}/scoreboard`;
 
   try {
-    const res = await fetch(finalURL);
-    const data = await res.json();
+    const response = await fetch(url);
+    const data = await response.json();
 
     if (!data.events || data.events.length === 0) {
       container.innerHTML = "No games today.";
@@ -33,8 +30,9 @@ async function fetchScores() {
     container.innerHTML = "";
 
     data.events.forEach(game => {
-      const home = game.competitions[0].competitors.find(t => t.homeAway === "home");
-      const away = game.competitions[0].competitors.find(t => t.homeAway === "away");
+      const competition = game.competitions[0];
+      const home = competition.competitors.find(t => t.homeAway === "home");
+      const away = competition.competitors.find(t => t.homeAway === "away");
 
       const status = game.status.type.description;
       const isLive = game.status.type.state === "in";
@@ -67,9 +65,9 @@ async function fetchScores() {
       container.appendChild(card);
     });
 
-  } catch (err) {
+  } catch (error) {
     container.innerHTML = "Error loading games.";
-    console.error(err);
+    console.error(error);
   }
 }
 
