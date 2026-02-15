@@ -6,8 +6,14 @@ function showTab(tab) {
   document.getElementById(tab).classList.add("active");
 }
 
+function getTodayDate() {
+  const today = new Date();
+  return today.toISOString().split("T")[0];
+}
+
 async function loadScores() {
-  const res = await fetch("https://www.balldontlie.io/api/v1/games?dates[]=2026-02-14");
+  const today = getTodayDate();
+  const res = await fetch(`https://www.balldontlie.io/api/v1/games?dates[]=${today}`);
   const data = await res.json();
 
   scoresContainer.innerHTML = "";
