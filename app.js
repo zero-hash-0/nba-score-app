@@ -22,7 +22,10 @@ async function loadScores() {
 }
 
 async function loadESPN(path) {
-  const res = await fetch(`https://site.api.espn.com/apis/v2/sports/${path}/scoreboard`);
+  const proxy = "https://api.allorigins.win/raw?url=";
+  const target = `https://site.api.espn.com/apis/v2/sports/${path}/scoreboard`;
+
+  const res = await fetch(proxy + encodeURIComponent(target));
   const data = await res.json();
 
   const games = data.events;
