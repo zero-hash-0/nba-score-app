@@ -1,5 +1,7 @@
 let currentSport = "nba";
 
+const proxy = "https://api.allorigins.win/raw?url=";
+
 function setSport(sport) {
   currentSport = sport;
 
@@ -16,10 +18,11 @@ async function fetchScores() {
   const container = document.getElementById("scores");
   container.innerHTML = "Loading...";
 
-  const url = `https://site.api.espn.com/apis/v2/sports/${currentSport}/scoreboard`;
+  const apiURL = `https://site.api.espn.com/apis/v2/sports/${currentSport}/scoreboard`;
+  const finalURL = proxy + encodeURIComponent(apiURL);
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(finalURL);
     const data = await res.json();
 
     if (!data.events || data.events.length === 0) {
@@ -66,6 +69,7 @@ async function fetchScores() {
 
   } catch (err) {
     container.innerHTML = "Error loading games.";
+    console.error(err);
   }
 }
 
