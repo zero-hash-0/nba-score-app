@@ -5,7 +5,7 @@ body {
 }
 
 .app {
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
 }
 
@@ -15,19 +15,20 @@ header {
   border-bottom: 1px solid #ddd;
   position: sticky;
   top: 0;
+  z-index: 10;
 }
 
 h1 {
   margin: 0 0 15px 0;
 }
 
-.tabs {
+/* Top View Tabs */
+.view-tabs {
   display: flex;
   gap: 10px;
-  margin-bottom: 10px;
 }
 
-.tabs button {
+.view-tabs button {
   flex: 1;
   padding: 10px;
   border: none;
@@ -37,32 +38,43 @@ h1 {
   cursor: pointer;
 }
 
-.tabs button.active {
-  background: #0f62fe;
+.view-tabs button.active {
+  background: #16a34a;
   color: white;
 }
 
-.sports {
+/* BIG GREEN SPORT TABS */
+.sport-tabs {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 25px 15px 10px 15px; /* slightly lower */
+  background: #ffffff;
 }
 
-.sports button {
-  flex: 1;
-  padding: 8px;
+.sport-tabs button {
+  flex: 1 1 45%;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bold;
   border: none;
-  border-radius: 15px;
-  background: #111;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   color: white;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
+.sport-tabs button:hover {
+  transform: scale(1.03);
+}
+
+/* Content */
 .content {
   padding: 15px;
 }
 
 /* Match Cards */
-
 .match-card {
   background: white;
   border-radius: 14px;
@@ -102,12 +114,11 @@ h1 {
 }
 
 .live {
-  color: red;
+  color: #16a34a;
   font-weight: bold;
 }
 
 /* News Cards */
-
 .news-card {
   background: white;
   border-radius: 14px;
