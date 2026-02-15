@@ -13,28 +13,36 @@ function getTodayDate() {
 
 async function loadScores() {
   const today = getTodayDate();
-  const res = await fetch(`https://www.balldontlie.io/api/v1/games?dates[]=${today}`);
-  const data = await res.json();
+  scoresContainer.innerHTML = "<p>Loading...</p>";
 
-  scoresContainer.innerHTML = "";
+  try {
+    const res = await fetch(`https://www.balldontlie.io/api/v1/games?dates[]=${today}`);
+    const data = await res.json();
 
-  if (data.data.length === 0) {
-    scoresContainer.innerHTML = "<p>No games today.</p>";
-    return;
+    scoresContainer.innerHTML = "";
+
+    if (!data.data || data.data.length === 0) {
+      scoresContainer.innerHTML = "<p>No games today.</p>";
+      return;
+    }
+
+    data.data.forEach(game => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <strong>${game.home_team.full_name}</strong> ${game.home_team_score}
+        <br/>
+        <strong>${game.visitor_team.full_name}</strong> ${game.visitor_team_score}
+        <br/>
+        Status: ${game.status}
+      `;
+      scoresContainer.appendChild(card);
+    });
+
+  } catch (error) {
+    scoresContainer.innerHTML = "<p>Error loading scores.</p>";
+    console.error(error);
   }
-
-  data.data.forEach(game => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <strong>${game.home_team.full_name}</strong> ${game.home_team_score}
-      <br/>
-      <strong>${game.visitor_team.full_name}</strong> ${game.visitor_team_score}
-      <br/>
-      Status: ${game.status}
-    `;
-    scoresContainer.appendChild(card);
-  });
 }
 
 loadScores();
