@@ -2,36 +2,231 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sports Live</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: white;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .header p {
+      opacity: 0.9;
+      margin-top: 8px;
+    }
+
+    /* TOP TOGGLE */
+    .top-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    .top-tabs button {
+      background: transparent;
+      border: 2px solid #22c55e;
+      color: #22c55e;
+      padding: 8px 18px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .top-tabs button.active {
+      background: #22c55e;
+      color: black;
+      font-weight: 600;
+    }
+
+    /* SPORTS TABS */
+    .sports-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .sports-tabs button {
+      background: #1e293b;
+      border: none;
+      padding: 14px 22px;
+      font-size: 16px;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .sports-tabs button:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+
+    .sports-tabs button.active {
+      background: #22c55e;
+      color: black;
+      font-weight: bold;
+    }
+
+    /* CONTENT */
+    .content {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      background: #273449;
+    }
+
+    .team {
+      font-weight: 600;
+    }
+
+    .score {
+      font-size: 20px;
+      font-weight: bold;
+      color: #22c55e;
+    }
+
+    .news-card {
+      background: #1e293b;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .news-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
 
-  <div class="app">
+  <div class="header">
+    <h1>🏆 Sports Live</h1>
+    <p>Real-time scores & breaking sports news</p>
+  </div>
 
-    <header>
-      <h1>Sports Live</h1>
+  <div class="top-tabs">
+    <button id="scoresBtn" class="active" onclick="showScores()">Scores</button>
+    <button id="newsBtn" onclick="showNews()">News</button>
+  </div>
 
-      <div class="view-tabs">
-        <button id="scoresTab" class="active" onclick="showScores()">Scores</button>
-        <button id="newsTab" onclick="showNews()">News</button>
-      </div>
-    </header>
+  <div id="scoresSection">
 
-    <!-- SPORT TABS (Lower + Bigger) -->
-    <div class="sport-tabs">
-      <button onclick="setSport('basketball/nba')">NBA</button>
-      <button onclick="setSport('hockey/nhl')">NHL</button>
-      <button onclick="setSport('baseball/mlb')">MLB</button>
-      <button onclick="setSport('soccer/eng.1')">Soccer</button>
+    <div class="sports-tabs">
+      <button class="active" onclick="loadSport('NBA', this)">🏀 NBA</button>
+      <button onclick="loadSport('NHL', this)">🏒 NHL</button>
+      <button onclick="loadSport('MLB', this)">⚾ MLB</button>
+      <button onclick="loadSport('Soccer', this)">⚽ Soccer</button>
     </div>
 
-    <div id="scores" class="content"></div>
-    <div id="news" class="content" style="display:none;"></div>
+    <div class="content" id="gamesContainer">
+      <!-- Games load here -->
+    </div>
 
   </div>
 
-  <script src="app.js"></script>
+  <div id="newsSection" class="hidden">
+    <div class="content">
+      <div class="news-card">
+        <h3>🔥 Major Trade Rumors Heating Up</h3>
+        <p>Sources say multiple teams are negotiating ahead of the deadline.</p>
+      </div>
+
+      <div class="news-card">
+        <h3>🏀 MVP Race Tightens</h3>
+        <p>Star players battle for the top spot as playoffs approach.</p>
+      </div>
+
+      <div class="news-card">
+        <h3>⚽ International Soccer Update</h3>
+        <p>Champions League knockout stages bring dramatic finishes.</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function showScores() {
+    document.getElementById("scoresSection").classList.remove("hidden");
+    document.getElementById("newsSection").classList.add("hidden");
+    document.getElementById("scoresBtn").classList.add("active");
+    document.getElementById("newsBtn").classList.remove("active");
+  }
+
+  function showNews() {
+    document.getElementById("scoresSection").classList.add("hidden");
+    document.getElementById("newsSection").classList.remove("hidden");
+    document.getElementById("scoresBtn").classList.remove("active");
+    document.getElementById("newsBtn").classList.add("active");
+  }
+
+  function loadSport(sport, btn) {
+    document.querySelectorAll(".sports-tabs button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const container = document.getElementById("gamesContainer");
+    container.innerHTML = "";
+
+    const sampleGames = [
+      { team1: sport + " Team A", team2: sport + " Team B", score: "102 - 98" },
+      { team1: sport + " Team C", team2: sport + " Team D", score: "3 - 1" }
+    ];
+
+    sampleGames.forEach(game => {
+      container.innerHTML += `
+        <div class="card">
+          <div>
+            <div class="team">${game.team1}</div>
+            <div class="team">${game.team2}</div>
+          </div>
+          <div class="score">${game.score}</div>
+        </div>
+      `;
+    });
+  }
+
+  loadSport('NBA', document.querySelector('.sports-tabs button'));
+</script>
+
 </body>
 </html>
