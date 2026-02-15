@@ -8,13 +8,16 @@
 </head>
 <body>
 
-  <header>
-    <h1>Sports Live</h1>
+  <header class="hero">
+    <div class="overlay">
+      <h1>Sports Live</h1>
+      <p>Real-time scores. Clean. Fast.</p>
+    </div>
   </header>
 
   <div class="sport-select">
-    <button onclick="setSport('nba')">NBA</button>
-    <button onclick="setSport('nhl')">NHL</button>
+    <button onclick="setSport('nba')" class="nba-btn">NBA</button>
+    <button onclick="setSport('nhl')" class="nhl-btn">NHL</button>
   </div>
 
   <div id="scores" class="scores"></div>
