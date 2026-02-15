@@ -6,40 +6,42 @@ body {
 }
 
 header {
-  background: #1d428a;
-  padding: 15px;
+  background: #1d3557;
+  padding: 20px;
   text-align: center;
 }
 
-.tab {
-  display: none;
+h1 {
+  margin: 0;
+}
+
+.sport-select {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   padding: 15px;
 }
 
-.tab.active {
-  display: block;
+button {
+  padding: 10px 20px;
+  background: #457b9d;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #1d3557;
+}
+
+.scores {
+  padding: 15px;
 }
 
 .card {
-  background: #1c1c1e;
+  background: #222;
+  padding: 15px;
   margin-bottom: 12px;
-  padding: 15px;
-  border-radius: 12px;
-}
-
-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  background: #1c1c1e;
-}
-
-nav button {
-  flex: 1;
-  padding: 15px;
-  background: none;
-  color: white;
-  border: none;
-  font-size: 16px;
+  border-radius: 8px;
 }
