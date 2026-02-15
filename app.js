@@ -1,59 +1,73 @@
-const scoresContainer = document.getElementById("scores");
 let currentSport = "nba";
 
 function setSport(sport) {
   currentSport = sport;
-  loadScores();
+
+  document.querySelectorAll(".tabs button").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  event.target.classList.add("active");
+
+  fetchScores();
 }
 
-async function loadScores() {
-  scoresContainer.innerHTML = "<p>Loading...</p>";
+async function fetchScores() {
+  const container = document.getElementById("scores");
+  container.innerHTML = "Loading...";
+
+  const url = `https://site.api.espn.com/apis/v2/sports/${currentSport}/scoreboard`;
 
   try {
-    if (currentSport === "nba") {
-      await loadESPN("basketball/nba");
-    } else if (currentSport === "nhl") {
-      await loadESPN("hockey/nhl");
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (!data.events || data.events.length === 0) {
+      container.innerHTML = "No games today.";
+      return;
     }
-  } catch (error) {
-    scoresContainer.innerHTML = "<p>Error loading scores.</p>";
-    console.error(error);
+
+    container.innerHTML = "";
+
+    data.events.forEach(game => {
+      const home = game.competitions[0].competitors.find(t => t.homeAway === "home");
+      const away = game.competitions[0].competitors.find(t => t.homeAway === "away");
+
+      const status = game.status.type.description;
+      const isLive = game.status.type.state === "in";
+
+      const card = document.createElement("div");
+      card.className = "match-card";
+
+      card.innerHTML = `
+        <div class="teams">
+          <div class="team">
+            <img src="${away.team.logo}" />
+            <span>${away.team.abbreviation}</span>
+          </div>
+
+          <div class="score">
+            ${away.score} - ${home.score}
+          </div>
+
+          <div class="team" style="justify-content:flex-end;">
+            <span>${home.team.abbreviation}</span>
+            <img src="${home.team.logo}" />
+          </div>
+        </div>
+
+        <div class="status ${isLive ? "live" : ""}">
+          ${status}
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+
+  } catch (err) {
+    container.innerHTML = "Error loading games.";
   }
 }
 
-async function loadESPN(path) {
-  const proxy = "https://api.allorigins.win/raw?url=";
-  const target = `https://site.api.espn.com/apis/v2/sports/${path}/scoreboard`;
-
-  const res = await fetch(proxy + encodeURIComponent(target));
-  const data = await res.json();
-
-  const games = data.events;
-  scoresContainer.innerHTML = "";
-
-  if (!games || games.length === 0) {
-    scoresContainer.innerHTML = "<p>No games today.</p>";
-    return;
-  }
-
-  games.forEach(game => {
-    const home = game.competitions[0].competitors.find(c => c.homeAway === "home");
-    const away = game.competitions[0].competitors.find(c => c.homeAway === "away");
-
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <strong>${home.team.displayName}</strong> ${home.score}
-      <br/>
-      <strong>${away.team.displayName}</strong> ${away.score}
-      <br/>
-      ${game.status.type.description}
-    `;
-
-    scoresContainer.appendChild(card);
-  });
-}
-
-loadScores();
-setInterval(loadScores, 60000);
+fetchScores();
+setInterval(fetchScores, 60000);
