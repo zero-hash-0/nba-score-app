@@ -1,47 +1,93 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #111;
+  background: #0f0f14;
   color: white;
 }
 
-header {
-  background: #1d3557;
-  padding: 20px;
+/* HERO SECTION */
+.hero {
+  background: linear-gradient(135deg, #1d3557, #0a1f44);
+  padding: 50px 20px;
   text-align: center;
+  position: relative;
 }
 
-h1 {
+.hero h1 {
   margin: 0;
+  font-size: 32px;
+  letter-spacing: 1px;
 }
 
+.hero p {
+  margin-top: 8px;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+/* SPORT BUTTONS */
 .sport-select {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  padding: 15px;
+  gap: 15px;
+  padding: 20px;
 }
 
 button {
-  padding: 10px 20px;
-  background: #457b9d;
+  padding: 12px 22px;
   border: none;
-  border-radius: 6px;
-  color: white;
+  border-radius: 30px;
   font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 
-button:hover {
-  background: #1d3557;
+/* NBA THEME */
+.nba-btn {
+  background: linear-gradient(135deg, #c8102e, #1d428a);
+  color: white;
 }
 
+.nba-btn:hover {
+  transform: scale(1.05);
+}
+
+/* NHL THEME */
+.nhl-btn {
+  background: linear-gradient(135deg, #111, #6c6c6c);
+  color: white;
+}
+
+.nhl-btn:hover {
+  transform: scale(1.05);
+}
+
+/* SCORES */
 .scores {
   padding: 15px;
 }
 
 .card {
-  background: #222;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 8px;
+  background: linear-gradient(145deg, #1c1c25, #14141a);
+  padding: 18px;
+  margin-bottom: 15px;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.card strong {
+  font-size: 16px;
+}
+
+/* Smooth Fade In */
+.card {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
