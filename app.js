@@ -1,39 +1,35 @@
-async function loadNBAGames() {
-  const today = new Date().toISOString().split('T')[0];
+const scoresContainer = document.getElementById("scores");
+const standingsContainer = document.getElementById("standings");
 
-  const response = await fetch(
-    `https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=${today}&l=NBA`
-  );
+function showTab(tab) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.getElementById(tab).classList.add("active");
+}
 
-  const data = await response.json();
-  const gamesContainer = document.getElementById("games");
-  gamesContainer.innerHTML = "";
+async function loadScores() {
+  const res = await fetch("https://www.balldontlie.io/api/v1/games?dates[]=2026-02-14");
+  const data = await res.json();
 
-  if (!data.events) {
-    gamesContainer.innerHTML = "<p>No games today.</p>";
+  scoresContainer.innerHTML = "";
+
+  if (data.data.length === 0) {
+    scoresContainer.innerHTML = "<p>No games today.</p>";
     return;
   }
 
-  data.events.forEach(game => {
-    const div = document.createElement("div");
-    div.classList.add("game");
-
-    div.innerHTML = `
-      <div class="team">
-        <span>${game.strHomeTeam}</span>
-        <span>${game.intHomeScore || 0}</span>
-      </div>
-      <div class="team">
-        <span>${game.strAwayTeam}</span>
-        <span>${game.intAwayScore || 0}</span>
-      </div>
-      <div class="status">
-        ${game.strStatus || "Scheduled"}
-      </div>
+  data.data.forEach(game => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <strong>${game.home_team.full_name}</strong> ${game.home_team_score}
+      <br/>
+      <strong>${game.visitor_team.full_name}</strong> ${game.visitor_team_score}
+      <br/>
+      Status: ${game.status}
     `;
-
-    gamesContainer.appendChild(div);
+    scoresContainer.appendChild(card);
   });
 }
 
-loadNBAGames();
+loadScores();
+setInterval(loadScores, 60000);

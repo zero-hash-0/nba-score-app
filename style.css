@@ -1,31 +1,45 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: #111;
   color: white;
 }
 
 header {
-  padding: 20px;
   background: #1d428a;
+  padding: 15px;
   text-align: center;
 }
 
-.game {
-  background: #222;
-  margin: 15px;
+.tab {
+  display: none;
   padding: 15px;
-  border-radius: 8px;
 }
 
-.team {
+.tab.active {
+  display: block;
+}
+
+.card {
+  background: #1c1c1e;
+  margin-bottom: 12px;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  font-size: 18px;
+  background: #1c1c1e;
 }
 
-.status {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #aaa;
+nav button {
+  flex: 1;
+  padding: 15px;
+  background: none;
+  color: white;
+  border: none;
+  font-size: 16px;
 }
